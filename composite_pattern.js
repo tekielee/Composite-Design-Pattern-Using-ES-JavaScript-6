@@ -10,7 +10,7 @@ class Item {
 	
 	getCost() {
 		return this.cost;
-	}	
+	}
 }
 
 class Part extends Item {
@@ -19,7 +19,7 @@ class Part extends Item {
 	}
 }
 
-class Assembly extends Item{
+class Assembly extends Part {
 	constructor(description) {
 		super(description, 0);
 		this.items = [];
@@ -34,36 +34,36 @@ class Assembly extends Item{
 		this.items.splice(index, 1);
 	}
 	
-	getItems() {
-		return this.items;
-	}
-	
 	getCost() {
-		if(this.items.length !== 0 && this.items.length !== 'undefined') {
-			let total = 0;
-			for(let i = 0; i < this.items.length; i++) {
-				total += this.items[i].getCost();
-			}
-			
-			return total;
+		let total = 0;
+		for(let i = 0; i < this.items.length; i++) {
+			total += this.items[i].getCost();
 		}
+		
+		this.cost = total;
+		return this.cost;
 	}
 }
 
-const nut = new Part('Nut', 5);
-const bolt = new Part('Bolt', 9);
-const panel = new Part('Panel', 35);
+const nut = new Item('Nut', 5);
+const bolt = new Item('Bolt', 9)
+const panel = new Item('Panel', 35)
 
-const gizmo = new Assembly('Gizmo');
+const gizmo = new Assembly('gizmo');
 
 gizmo.addItem(nut);
 gizmo.addItem(bolt);
 gizmo.addItem(panel);
-gizmo.cost = gizmo.getCost();
+gizmo.getCost();
+console.log(gizmo.cost);
+gizmo.removeItem(bolt);
+gizmo.getCost();
+console.log(gizmo.cost);
 
-const widget = new Assembly('Widget');
+const widget = new Assembly('widget');
 widget.addItem(gizmo);
 widget.addItem(nut);
-widget.cost = widget.getCost();
+widget.getCost();
 
 console.log(widget);
+console.log(widget.cost);
