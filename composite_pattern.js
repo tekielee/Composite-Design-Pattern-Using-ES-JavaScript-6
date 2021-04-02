@@ -13,13 +13,7 @@ class Item {
 	}
 }
 
-class Part extends Item {
-	constructor(description, cost) {
-		super(description, cost);
-	}
-}
-
-class Assembly extends Part {
+class Assembly extends Item {
 	constructor(description) {
 		super(description, 0);
 		this.items = [];
